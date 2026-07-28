@@ -5,7 +5,7 @@ kind: Deployment
 metadata:
   name: simple-crud-frontend
 spec:
-  replicas: 2
+  replicas: 5
   selector:
     matchLabels:
       app: simple-crud-frontend

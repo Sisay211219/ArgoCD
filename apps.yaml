@@ -1,0 +1,66 @@
+---
+# Frontend Deployment & Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-crud-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: simple-crud-frontend
+  template:
+    metadata:
+      labels:
+        app: simple-crud-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: sisay21/simple-crud-frontend:api-base-url-new 
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: simple-crud-frontend
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
+---
+# Backend Deployment & Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-crud-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simple-crud-backend
+  template:
+    metadata:
+      labels:
+        app: simple-crud-backend
+    spec:
+      containers:
+      - name: backend
+        image: sisay21/simple-crud-backend:latest
+        ports:
+        - containerPort: 3333
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: simple-crud-backend
+  ports:
+  - protocol: TCP
+    port: 3333
+    targetPort: 3333

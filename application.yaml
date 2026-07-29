@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: simple-crud-ingress-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    # URL of your Git repository
+    repoURL: https://github.com/Sisay211219/ArgoCD.git
+    targetRevision: HEAD
+    # Path inside repo (set to root '.' since manifests are in the main directory)
+    path: '.'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

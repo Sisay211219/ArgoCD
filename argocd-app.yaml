@@ -1,17 +1,16 @@
+cat <<'EOF' > argocd-app.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: simple-crud-app-frontend  
+  name: simple-crud-app
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    # URL of the GitHub repo you just created
     repoURL: https://github.com/Sisay211219/ArgoCD.git
     targetRevision: HEAD
-    # Path inside the repository where your YAML files are located
     path: '.'
   destination:
     server: 'https://kubernetes.default.svc'
@@ -20,3 +19,4 @@ spec:
     automated:
       prune: true
       selfHeal: true
+EOF

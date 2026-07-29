@@ -1,0 +1,21 @@
+cat <<'EOF' > 02-app-ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: simple-crud-app-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: crud-fe.sisay.et
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: simple-crud-frontend
+            port:
+              number: 3000
+EOF
